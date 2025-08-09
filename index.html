@@ -30,13 +30,17 @@
         Překlad je kompatibilní se Steam verzí hry Final Fantasy XVI (verze 1.03).<br>
         Stačí stáhnout patch a vložit jej do správné složky.
     </p>
-    <a class="button" href="download/0007.diff.pac" download>Stáhnout češtinu</a>
+
+    <!-- TLAČÍTKO + POČÍTADLO -->
+    <a id="download-btn" class="button" href="download/0007.diff.pac" download>Stáhnout češtinu</a>
+    <p style="margin-top:6px">Staženo: <strong><span id="dl-count">—</span>×</strong></p>
 
     <h2>⚙️ Instalace</h2>
     <p>
         1⃣ Stáhni soubor s příponou <code>.diff</code><br>
         2⃣ Vlož ho do složky: <code>Steam\steamapps\common\FINAL FANTASY XVI\data</code><br>
-        3⃣ Spusť hru – čeština se načte automaticky.<br><br>
+        3⃣ Spusť hru – čeština se načte automaticky.<br>
+        4⃣ <strong>Chceš češtinu použít v demo verzi?</strong> Stačí soubor přejmenovat na <code>0001.diff.pac</code><br><br>
         🪝 Pokud budeš chtít češtinu odebrat, stačí soubor jednoduše smazat.<br>
         ❗ Překlad nijak nemění původní soubory hry.
     </p>
@@ -62,7 +66,7 @@
     </p>
 
     <p>
-        💳 <strong>Číslo účtu (CZK):</strong> 1805370193 / 0800<br>
+        💳 <strong>Číslo účtu (CZK):</strong> 1805370193/0800<br>
         💬 Do zprávy pro příjemce klidně napiš: <em>„FFXVI čeština“</em>
     </p>
 
@@ -94,6 +98,30 @@
 
 </div>
 
+<!-- Počítadlo – CountAPI + děkovací hláška -->
+<script>
+  const NAMESPACE = 'zeldaworks_ffxvi';
+  const KEY = 'download_0007_diff_pac';
+
+  const $count = document.getElementById('dl-count');
+  const $btn = document.getElementById('download-btn');
+
+  function refreshCount() {
+    fetch(`https://api.countapi.xyz/get/${NAMESPACE}/${KEY}`)
+      .then(r => r.json())
+      .then(d => { $count.textContent = (d && typeof d.value === 'number') ? d.value.toLocaleString('cs-CZ') : '0'; })
+      .catch(() => { $count.textContent = '0'; });
+  }
+
+  $btn.addEventListener('click', () => {
+    fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`, { mode: 'cors', keepalive: true })
+      .then(() => setTimeout(refreshCount, 800))
+      .catch(() => {});
+    alert('Tvá cesta začíná ⚔️ Buď připraven na vše.');
+  });
+
+  refreshCount();
+</script>
+
 </body>
 </html>
-
