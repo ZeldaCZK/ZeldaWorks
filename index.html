@@ -31,9 +31,8 @@
         Stačí stáhnout patch a vložit jej do správné složky.
     </p>
 
-    <!-- TLAČÍTKO + POČÍTADLO -->
+    <!-- TLAČÍTKO KE STAŽENÍ -->
     <a id="download-btn" class="button" href="download/0007.diff.pac" download>Stáhnout češtinu</a>
-    <p style="margin-top:6px">Staženo: <strong><span id="dl-count">—</span>×</strong></p>
 
     <h2>⚙️ Instalace</h2>
     <p>
@@ -66,7 +65,7 @@
     </p>
 
     <p>
-        💳 <strong>Číslo účtu (CZK):</strong> 1805370193/0800<br>
+        💳 <strong>Číslo účtu (CZK):</strong> 1805370193 / 0800<br>
         💬 Do zprávy pro příjemce klidně napiš: <em>„FFXVI čeština“</em>
     </p>
 
@@ -98,30 +97,13 @@
 
 </div>
 
-<!-- Počítadlo – CountAPI + děkovací hláška -->
+<!-- Jen jednoduchá hláška po kliku -->
 <script>
-  const NAMESPACE = 'zeldaworks_ffxvi';
-  const KEY = 'download_0007_diff_pac';
-
-  const $count = document.getElementById('dl-count');
-  const $btn = document.getElementById('download-btn');
-
-  function refreshCount() {
-    fetch(`https://api.countapi.xyz/get/${NAMESPACE}/${KEY}`)
-      .then(r => r.json())
-      .then(d => { $count.textContent = (d && typeof d.value === 'number') ? d.value.toLocaleString('cs-CZ') : '0'; })
-      .catch(() => { $count.textContent = '0'; });
-  }
-
-  $btn.addEventListener('click', () => {
-    fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`, { mode: 'cors', keepalive: true })
-      .then(() => setTimeout(refreshCount, 800))
-      .catch(() => {});
+  document.getElementById('download-btn').addEventListener('click', function () {
     alert('Tvá cesta začíná ⚔️ Buď připraven na vše.');
   });
-
-  refreshCount();
 </script>
 
 </body>
 </html>
+
